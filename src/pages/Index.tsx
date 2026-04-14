@@ -1,16 +1,29 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import HomeScreen from "@/components/game/HomeScreen";
+import GameScreen from "@/components/game/GameScreen";
+import { loadStats } from "@/lib/gameLogic";
+import type { Difficulty } from "@/lib/gameLogic";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
-  return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
-  );
+const Index = () => {
+  const [screen, setScreen] = useState<"home" | "game">("home");
+  const [difficulty, setDifficulty] = useState<Difficulty>(4);
+
+  const handleStart = (d: Difficulty) => {
+    setDifficulty(d);
+    setScreen("game");
+  };
+
+  if (screen === "game") {
+    return (
+      <GameScreen
+        key={`${difficulty}-${Date.now()}`}
+        difficulty={difficulty}
+        onBack={() => setScreen("home")}
+      />
+    );
+  }
+
+  return <HomeScreen onStart={handleStart} stats={loadStats()} />;
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
