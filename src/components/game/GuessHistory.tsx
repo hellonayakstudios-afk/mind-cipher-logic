@@ -60,11 +60,11 @@ const GuessHistory = ({ guesses }: GuessHistoryProps) => {
           </motion.div>
         </div>
       )}
-      <div className="flex flex-col-reverse gap-2 overflow-y-auto scrollbar-thin">
-        {rest.map((g, i) => (
+      <div className="flex flex-col gap-2 overflow-y-auto scrollbar-thin pt-1">
+        {[...rest].reverse().map((g, i) => (
           <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
+            key={rest.length - i}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2 }}
           >
@@ -72,6 +72,7 @@ const GuessHistory = ({ guesses }: GuessHistoryProps) => {
           </motion.div>
         ))}
       </div>
+
     </div>
   );
 };
